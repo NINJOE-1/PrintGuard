@@ -7,6 +7,7 @@ ___
 - (7 to 8 hours)
   
 2. **Give rough breakdown of hours spent on 1-3 of the following:***
+
 i. Top item: met with the team to finalize the project proposal template breaking down the tasks between the group and deciding on what to work on for the project like dividing the componemts and distributing roles and tasks. (1.5 hours)
 
 ii. 2nd item: researched about my component which is temperature and humidity control, researched a specific sensor DHT22 which monitors temperature because we will be using that specific sesnor. (2 hours)
