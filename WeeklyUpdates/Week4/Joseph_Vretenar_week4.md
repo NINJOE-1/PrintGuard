@@ -4,11 +4,11 @@
 ## Week: 3 - Jan 31 to Feb 6
 
 ### 1. Hours spent this week.
-- 11 Hours
+- 12 Hours
 
 ### 2. Breakdown of how time was spent.
 - 3 Hours CAD/Enclosure Prototyping
-- 7 Hours Proposal
+- 8 Hours Proposal
 - 1 Hour meetings
 
 ### 3. What did you accomplish this week?
