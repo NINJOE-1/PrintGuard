@@ -19,7 +19,7 @@
 ### 4. How do you feel about your progress?
 - I feel as though I am progressing well and helping the project move forward
 
-### 5. What are you panning to do next week?
+### 5. What are you planning to do next week?
 - I am going to get started on the design of the enclosure that surrounds the printer
 - Start some research into the strech goal of setting up a server to run AI analysis.
 
