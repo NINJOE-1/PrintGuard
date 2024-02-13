@@ -1,7 +1,7 @@
 # Weekly Individual Project Update Report
 ### Group Number: L2-G9
 ### Student Name: Joseph Vretenar
-## Week: 3 - Jan 31 to Feb 6
+## Week: 4 - Jan 31 to Feb 6
 
 ### 1. Hours spent this week.
 - 12 Hours
