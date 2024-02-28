@@ -1,7 +1,7 @@
 ## Weekly Individual Project Update Report
 ### Group number:L2-G9
-### Student name:Samuel Mauricla
-### Week: _(Feb 13 to Feb 27)_
+### Student name: Samuel Mauricla
+### Week: Feb 13 to Feb 27
 ___
 1. **How many hours did you spend on the project this week? (0-10)**
 5 hours
