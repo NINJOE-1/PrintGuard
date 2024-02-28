@@ -9,7 +9,7 @@ ___
    (meetings, information gathering, design, research, brainstorming, evaluating options, prototyping options, writing/documenting, refactoring, testing, software implementation, hardware implementation)
    1. research on what is needed to be done for 3D printing 1 hour
    2. worked on sensor info 2 hours
-   3. imlpementing how to upload images 2 hours
+   3. implementing how to upload images 2 hours
 3. ***What did you accomplish this week?*** _(Be specific)_
   - got good info on how to implement sensor
   - was able to understand the implementation of how the 3D printer should work
