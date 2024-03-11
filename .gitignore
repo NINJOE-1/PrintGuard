@@ -1,2 +1,3 @@
-info.py
+#Ignore any file called info.py
+**/info.py
 **/*.jpg
