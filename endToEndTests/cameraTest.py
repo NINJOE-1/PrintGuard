@@ -1,3 +1,5 @@
+# Written by Joseph Vretenar
+
 import paramiko
 from scp import SCPClient
 import smbus

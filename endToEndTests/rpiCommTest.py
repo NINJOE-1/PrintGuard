@@ -1,3 +1,5 @@
+# Written by Joseph Vretenar, Samuel Mauricla, and Basma Aboushaer
+
 import smbus
 import sys
 import pyrebase

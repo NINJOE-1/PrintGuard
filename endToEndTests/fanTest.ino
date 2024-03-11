@@ -1,3 +1,5 @@
+//Written by Joseph Vretenar
+
 #include <Wire.h>
 #define ADDRESS 0x08
 #define RED 4

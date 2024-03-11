@@ -1,11 +1,14 @@
+#Written by Samuel Mauricla
+
 import pyrebase
 from time import sleep
+from info import firebaseAPI, firebaseAuth, firebaseURL, firebaseStorage
 
 config = { # setup config for firebase
-    "apiKey": "AIzaSyBUG_CMNlYEh0j63f4YwQJGle6rfx4ZU_I",
-    "authDomain": "print-guard.firebaseapp.com",
-    "databaseURL": "https://print-guard-default-rtdb.firebaseio.com/",
-    "storageBucket": "print-guard.appspot.com"
+    "apiKey": firebaseAPI,
+    "authDomain": firebaseAuth,
+    "databaseURL": firebaseURL,
+    "storageBucket": firebaseStorage
 }
 
 # initializations

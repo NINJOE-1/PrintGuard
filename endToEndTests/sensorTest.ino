@@ -1,3 +1,5 @@
+//Written by Basma Aboushaer and Joseph Vretenar
+
 #include <Wire.h>
 #define SLAVE_ADDRESS 0x09       // I2C address for Arduino
 
