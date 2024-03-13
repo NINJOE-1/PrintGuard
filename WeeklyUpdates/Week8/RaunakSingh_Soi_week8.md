@@ -1,7 +1,7 @@
 ## Weekly Individual Project Update Report
 ### Group number: L2-G9
 ### Student name: Raunak Singh Soi
-### Week: Week March 5th to March 
+### Week: Week March 5th to March 12th
 ___
 1. **How many hours did you spend on the project this week? (4-5 HOURS)**
 
