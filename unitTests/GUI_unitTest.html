@@ -1,3 +1,4 @@
+<!--This is written by Raunak-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #F8F9FA;
+            background-color: #FFFFFF;
             color: #343A40;
             margin: 0;
             padding: 20px;
@@ -48,6 +49,15 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            text-align: center;
+        }
+        button {
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        /* Hide printer control initially */
+        #printerControlSection {
+            display: none;
         }
     </style>
 </head>
@@ -71,39 +81,47 @@
                 <h2>Print Job Management</h2>
                 <p>Start, pause, or stop print jobs and adjust printer settings through the GUI.</p>
             </div>
-
-            <div class="section">
-                <h2>Notification Center</h2>
-                <p>Alerts and notifications for critical events ensuring users are promptly informed.</p>
-            </div>
         </div>
 
         <div class="right-section">
             <div class="section">
                 <h2>User Management</h2>
                 <p>Admin users can manage access rights, adding or removing users, and assigning roles.</p>
+                <button type="button" id="adminSwitch">Switch to Admin Mode</button>
             </div>
-            <button type="button" id="printerControl">Printer Control</button>
+            <div class="section" id="printerControlSection">
+                <h2>Printer Control</h2>
+                <button type="button" id="printerControl">Printer Control</button>
+            </div>
         </div>
     </div>
 
     <script>
+        document.getElementById("adminSwitch").onclick = function() {
+            var password = prompt("Please enter the password to switch to admin mode:");
+            if (password === "print-guard") {
+                alert("Switched to admin mode.");
+                // Show the printer control section
+                document.getElementById("printerControlSection").style.display = "block";
+            } else {
+                alert("Incorrect password.");
+            }
+        };
+
         document.getElementById("printerControl").onclick = function() {
             var userChoice = confirm("Do you want to start or stop the printer?");
             if (userChoice) {
-                // User clicked "OK"
                 var startStop = prompt("Type 'start' to start the printer or 'stop' to stop the printer.", "");
                 if (startStop.toLowerCase() === "start") {
                     alert("Starting the printer...");
-                    // integrate joes code
+                    // Integrate starting the printer functionality here
                 } else if (startStop.toLowerCase() === "stop") {
                     alert("Stopping the printer...");
-                    // integrate joes code
+                    // Integrate stopping the printer functionality here
                 } else {
                     alert("Invalid input. Please type 'start' or 'stop'.");
                 }
             } else {
-                // User clicked "Cancel"
                 alert("Operation canceled.");
             }
         };
