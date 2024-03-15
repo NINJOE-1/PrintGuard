@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Print Guard Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #F8F9FA;
+            color: #343A40;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            margin-left: 20px;
+            width: 280px;
+            height: auto;
+        }
+        .camera-feed {
+            border: 2px solid #343A40;
+            padding: 10px;
+            margin-right: 20px;
+            text-align: center;
+        }
+        .content {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .left-section, .right-section {
+            flex: 1;
+            margin: 10px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #000000;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://raw.githubusercontent.com/RaunakSinghSoi/schoolwork/main/logo.png" alt="Print Guard Logo" class="logo">
+        <div class="camera-feed">
+            <h2>Live Camera Feed</h2>
+            <p>Feed will be displayed here.</p>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="left-section">
+            <div class="section">
+                <h2>Dashboard</h2>
+                <p>Real-time data on printer status, temperature graphs, and ongoing print jobs.</p>
+            </div>
+
+            <div class="section">
+                <h2>Print Job Management</h2>
+                <p>Start, pause, or stop print jobs and adjust printer settings through the GUI.</p>
+            </div>
+
+            <div class="section">
+                <h2>Notification Center</h2>
+                <p>Alerts and notifications for critical events ensuring users are promptly informed.</p>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="section">
+                <h2>User Management</h2>
+                <p>Admin users can manage access rights, adding or removing users, and assigning roles.</p>
+            </div>
+            <button type="button" id="printerControl">Printer Control</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("printerControl").onclick = function() {
+            var userChoice = confirm("Do you want to start or stop the printer?");
+            if (userChoice) {
+                // User clicked "OK"
+                var startStop = prompt("Type 'start' to start the printer or 'stop' to stop the printer.", "");
+                if (startStop.toLowerCase() === "start") {
+                    alert("Starting the printer...");
+                    // integrate joes code
+                } else if (startStop.toLowerCase() === "stop") {
+                    alert("Stopping the printer...");
+                    // integrate joes code
+                } else {
+                    alert("Invalid input. Please type 'start' or 'stop'.");
+                }
+            } else {
+                // User clicked "Cancel"
+                alert("Operation canceled.");
+            }
+        };
+    </script>
+</body>
+</html>
