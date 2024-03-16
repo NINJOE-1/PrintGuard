@@ -14,94 +14,90 @@
             display: flex;
             flex-direction: column;
         }
-        .header {
+        .hidden-content {
+            display: none; /* Initially hide the main content */
+        }
+        .verification-message {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            text-align: center;
+            height: 100vh;
         }
         .logo {
             margin-left: 20px;
             width: 280px;
             height: auto;
         }
-        .camera-feed {
+        .camera-feed, .left-section, .right-section, .section {
             border: 2px solid #343A40;
             padding: 10px;
-            margin-right: 20px;
-            text-align: center;
-        }
-        .content {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
             margin-top: 20px;
-        }
-        .left-section, .right-section {
-            flex: 1;
-            margin: 10px;
-        }
-        h1, h2 {
-            text-align: center;
-            color: #000000;
-        }
-        .section {
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
             border-radius: 5px;
             text-align: center;
+        }
+        .content, .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         button {
             cursor: pointer;
             margin-top: 10px;
         }
-        /* Hide printer control initially */
+        /* Additional styles */
         #printerControlSection {
             display: none;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <img src="https://raw.githubusercontent.com/RaunakSinghSoi/schoolwork/main/logo.png" alt="Print Guard Logo" class="logo">
-        <div class="camera-feed">
-            <h2>Live Camera Feed</h2>
-            <p>Feed will be displayed here.</p>
-        </div>
+    <div class="verification-message">
+        <button id="verifySystem">Verify System</button>
     </div>
 
-    <div class="content">
-        <div class="left-section">
-            <div class="section">
-                <h2>Dashboard</h2>
-                <p>Real-time data on printer status, temperature graphs, and ongoing print jobs.</p>
-            </div>
-
-            <div class="section">
-                <h2>Print Job Management</h2>
-                <p>Start, pause, or stop print jobs and adjust printer settings through the GUI.</p>
+    <div class="main-content hidden-content">
+        <div class="header">
+            <img src="https://raw.githubusercontent.com/RaunakSinghSoi/schoolwork/main/logo.png" alt="Print Guard Logo" class="logo">
+            <div class="camera-feed">
+                <h2>Live Camera Feed</h2>
+                <p>Feed will be displayed here.</p>
             </div>
         </div>
 
-        <div class="right-section">
-            <div class="section">
-                <h2>User Management</h2>
-                <p>Admin users can manage access rights, adding or removing users, and assigning roles.</p>
-                <button type="button" id="adminSwitch">Switch to Admin Mode</button>
+        <div class="content">
+            <div class="left-section">
+                <div class="section">
+                    <h2>Dashboard</h2>
+                    <p>Real-time data on printer status, temperature graphs, and ongoing print jobs.</p>
+                </div>
+
             </div>
-            <div class="section" id="printerControlSection">
-                <h2>Printer Control</h2>
-                <button type="button" id="printerControl">Printer Control</button>
+
+            <div class="right-section">
+                <div class="section">
+                    <h2>User Management</h2>
+                    <p>Admin users can manage access rights, adding or removing users, and assigning roles.</p>
+                    <button type="button" id="adminSwitch">Switch to Admin Mode</button>
+                </div>
+                <div class="section" id="printerControlSection">
+                    <h2>Printer Control</h2>
+                    <button type="button" id="printerControl">Printer Control</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        document.getElementById("verifySystem").addEventListener("click", function() {
+            document.querySelector(".verification-message").style.display = "none";
+            document.querySelector(".main-content").classList.remove("hidden-content");
+        });
+
         document.getElementById("adminSwitch").onclick = function() {
             var password = prompt("Please enter the password to switch to admin mode:");
-            if (password === "print-guard") {
+            if (password === "L2-G9") {
                 alert("Switched to admin mode.");
-                // Show the printer control section
                 document.getElementById("printerControlSection").style.display = "block";
             } else {
                 alert("Incorrect password.");
@@ -114,10 +110,10 @@
                 var startStop = prompt("Type 'start' to start the printer or 'stop' to stop the printer.", "");
                 if (startStop.toLowerCase() === "start") {
                     alert("Starting the printer...");
-                    // Integrate starting the printer functionality here
+                    // Integrate team code
                 } else if (startStop.toLowerCase() === "stop") {
                     alert("Stopping the printer...");
-                    // Integrate stopping the printer functionality here
+                    // Integrate team code
                 } else {
                     alert("Invalid input. Please type 'start' or 'stop'.");
                 }
