@@ -1,4 +1,4 @@
-//written by Raunak with help from Joe , edited to accomadate the altitude factor to make testing realistic.
+//written by Raunak with help from Joseph , edited to accomadate the altitude factor to make testing realistic.
 #include <Arduino.h>
 
 uint8_t fan = 9;    // Fan pin
