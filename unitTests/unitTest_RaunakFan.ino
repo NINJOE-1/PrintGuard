@@ -5,7 +5,6 @@ uint8_t fan = 9;    // Fan pin
 uint8_t rpmPin = 2; // RPM pin
 
 volatile int count = 0; // RPM count
-unsigned long lastMillis = 0;
 
 uint16_t lower[] = {0, 100, 280, 490, 670, 850, 1000, 1180, 1330, 1450, 1620};    // Lower bounds (expected - 80)
 uint32_t upper[] = {10, 260, 440, 650, 830, 1030, 1160, 1340, 1490, 1630, 2500};  // Upper bounds (expected + 80)
@@ -19,8 +18,9 @@ void setup() {
 }
 
 void loop() {
-    uint8_t percent = 0; // Speed percentage
-    for (int i = 0; i < 12; i++) { // Increased iterations to include the 100% duty cycle
+    for (int i = 0; i < 11; i++) {
+        count = 0; // **RESET COUNT BEFORE EACH RPM MEASUREMENT**
+        uint8_t percent = i * 10; // Calculate percentage
         uint8_t speed = map(percent, 0, 100, 0, 255); // Convert percent to PWM value
         analogWrite(fan, speed); // Set fan speed
         delay(5000); // 5 second delay to stabilize
@@ -31,13 +31,6 @@ void loop() {
             Serial.println("Test passed");
         } else {
             Serial.println("Test failed");
-        }
-        
-        // Increase speed percentage
-        if (percent <= 100) { // While percent < 100
-            percent += 10; // Increase by 10%
-        } else {
-            percent = 0; // Reset to 0 if at 100
         }
     }
     
@@ -50,6 +43,6 @@ void countRPM() {
 }
 
 uint16_t reportRPM() {
-    uint16_t rpm = count * 30;  
-    return rpm; 
+    uint16_t rpm = count * 30; // True RPM = count * 60 (seconds in a minute) / 2 (rising edges per rotation)
+    return rpm; // Return RPM for comparison
 }
