@@ -20,7 +20,7 @@ void setup() {
 
 void loop() {
     uint8_t percent = 0; // Speed percentage
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 12; i++) { // Increased iterations to include the 100% duty cycle
         uint8_t speed = map(percent, 0, 100, 0, 255); // Convert percent to PWM value
         analogWrite(fan, speed); // Set fan speed
         delay(5000); // 5 second delay to stabilize
@@ -34,7 +34,7 @@ void loop() {
         }
         
         // Increase speed percentage
-        if (percent <= 90) { // While percent < 100
+        if (percent <= 100) { // While percent < 100
             percent += 10; // Increase by 10%
         } else {
             percent = 0; // Reset to 0 if at 100
