@@ -16,4 +16,4 @@ def check_temperature(temp):
 
 # Iterate over the simulated temperature readings and print the check result
 results = [check_temperature(temp) for temp in simulated_temperatures]
-results
+print(results)
