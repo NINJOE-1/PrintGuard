@@ -103,7 +103,7 @@ def take_screenshot():
 
     try:
         with open(filename, 'wb') as f:
-            picam2.capture_image(output=f)  # Capture raw Bayer data
+            picam2.capture_image(output=f) 
         logging.info(f'Screenshot saved: {filename}')
     except Exception as e:
         logging.error(f'Error capturing screenshot: {e}')
