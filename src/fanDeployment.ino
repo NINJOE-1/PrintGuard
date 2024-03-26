@@ -26,6 +26,10 @@ void loop() {
 }
 
 void receiveData(int byteCount) {
+  count = 0;
+  start_time = millis();
+  while((millis() - start_time) < 1000) {}
+  rpm = (count * 30);
   while (Wire.available()) {
     incoming = Wire.read();
     if (incoming < 31) {
@@ -39,11 +43,6 @@ void receiveData(int byteCount) {
 }
 
 void sendData() {
-  //count = 0;
-  //start_time = millis();
-  //while((millis() - start_time) < 1000) {}
-  //rpm = (count * 30);
-  rpm = 1650;
   data[0] = ((rpm >> 8) & 255);
   data[1] = rpm & 255;
   Wire.write(data, 2);
