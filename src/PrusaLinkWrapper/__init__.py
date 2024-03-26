@@ -20,6 +20,12 @@ class PrusaLinkWrapper:
     def getMaterial(self):
         return getPrinter().json()["telemetry"]["material"]
     
+    def getSpeed(self):
+        return getPrinter().json()["telemetry"]["print-speed"]
+    
+    def getHeight(self):
+        return getPrinter().json()["telemetry"]["z-height"]
+    
     def getStatus(self):
         return requests.get('http://' + self.host + ':' + self.port + '/api/v1/status', headers=self.headers)
     
@@ -28,6 +34,18 @@ class PrusaLinkWrapper:
     
     def getRemaining(self):
         return getStatus().json()["job"]["time_remaining"]
+    
+    def getPrinting(self):
+        return getStatus().json()["job"]["time_printing"]
+    
+    def getState(self):
+        return getStatus().json()["printer"]["state"]
+    
+    def getNozzleTarget(self):
+        return getStatus().json()["printer"]["target_nozzle"]
+    
+    def getBedTarget(self):
+        return getStatus().json()["printer"]["target_bed"]
     
     def stopPrint(self):
         data = {'command': 'cancel'}
