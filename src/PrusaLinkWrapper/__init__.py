@@ -9,43 +9,46 @@ class PrusaLinkWrapper:
         self.headers = {'X-Api-Key': api_key}
     
     def getPrinter(self):
-        return requests.get('http://' + self.host + ':' + self.port + '/api/printer', headers=self.headers)
+        return requests.get('http://'+self.host+':'+self.port+'/api/printer',headers=self.headers)
     
     def getNozzle(self):
-        return getPrinter().json()["telemetry"]["temp-nozzle"]
+        return requests.get('http://'+self.host+':'+self.port+'/api/printer',headers=self.headers).json()["telemetry"]["temp-nozzle"]
     
     def getBed(self):
-        return getPrinter().json()["telemetry"]["temp-bed"]
+        return requests.get('http://'+self.host+':'+self.port+'/api/printer',headers=self.headers).json()["telemetry"]["temp-bed"]
     
     def getMaterial(self):
-        return getPrinter().json()["telemetry"]["material"]
+        return requests.get('http://'+self.host+':'+self.port+'/api/printer',headers=self.headers).json()["telemetry"]["material"]
     
     def getSpeed(self):
-        return getPrinter().json()["telemetry"]["print-speed"]
+        return requests.get('http://'+self.host+':'+self.port+'/api/printer',headers=self.headers).json()["telemetry"]["print-speed"]
     
     def getHeight(self):
-        return getPrinter().json()["telemetry"]["z-height"]
+        return requests.get('http://'+self.host+':'+self.port+'/api/printer',headers=self.headers).json()["telemetry"]["z-height"]
+    
+    def getPrintingStatus(self):
+        return requests.get('http://'+self.host+':'+self.port+'/api/printer',headers=self.headers).json()["state"]["flags"]["printing"]
     
     def getStatus(self):
-        return requests.get('http://' + self.host + ':' + self.port + '/api/v1/status', headers=self.headers)
+        return requests.get('http://'+self.host+':'+self.port+'/api/v1/status',headers=self.headers)
     
     def getProgress(self):
-        return getStatus().json()["job"]["progress"]
+        return requests.get('http://'+self.host+':'+self.port+'/api/v1/status',headers=self.headers).json()["job"]["progress"]
     
     def getRemaining(self):
-        return getStatus().json()["job"]["time_remaining"]
+        return requests.get('http://'+self.host+':'+self.port+'/api/v1/status',headers=self.headers).json()["job"]["time_remaining"]
     
     def getPrinting(self):
-        return getStatus().json()["job"]["time_printing"]
+        return requests.get('http://'+self.host+':'+self.port+'/api/v1/status',headers=self.headers).json()["job"]["time_printing"]
     
     def getState(self):
-        return getStatus().json()["printer"]["state"]
+        return requests.get('http://'+self.host+':'+self.port+'/api/v1/status',headers=self.headers).json()["printer"]["state"]
     
     def getNozzleTarget(self):
-        return getStatus().json()["printer"]["target_nozzle"]
+        return requests.get('http://'+self.host+':'+self.port+'/api/v1/status',headers=self.headers).json()["printer"]["target_nozzle"]
     
     def getBedTarget(self):
-        return getStatus().json()["printer"]["target_bed"]
+        return requests.get('http://'+self.host+':'+self.port+'/api/v1/status',headers=self.headers).json()["printer"]["target_bed"]
     
     def stopPrint(self):
         data = {'command': 'cancel'}
