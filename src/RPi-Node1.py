@@ -45,25 +45,32 @@ async def send_discord_message(bot, message):
             print(f"Error sending Discord message: {e}")
 
 def main():
+    key = 1
     while True:
         bus.write_byte(sensorAddress, 0x01)
         dhtData = bus.read_i2c_block_data(sensorAddress, 0x00, 4)
-        bus.write_byte(fanAddress, 0x01)
-        sleep(1)	#wait for rpm to be calculated
+        bus.write_byte(fanAddress, dhtData[0])
+        sleep(1)#wait for rpm to be calculated
         rpmData = bus.read_i2c_block_data(fanAddress, 0x00, 2)
         rpm = ((rpmData[0] << 8) | rpmData[1])
         sensorData = [dhtData[0], dhtData[1], dhtData[2], dhtData[3], rpm]
         
-        nozzle = printer.getNozzle()
-        bed = printer.getBed()
-        progress = printer.getProgress()
-        printerData = [nozzle, bed, progress]
+        nozzle = printer.getPrinter().json()["telemetry"]["temp-nozzle"]
+        bed = printer.getPrinter().json()["telemetry"]["temp-bed"]
+        #progress = printer.getStatus().json()["job"]["progress"]
+        printerData = [nozzle, bed]
         
         time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        for i in sensorTable:
-            db.child(table1).child(sensorTable[i]).child(time).set(sensorData[i])
-        for j in printerTable:
-            db.child(table2).child(printerTable[j]).child(time).set(printerData[j])
+        db.child(table1).child("internalTemp").child(time).set(sensorData[0])
+        db.child(table1).child("internalHumidity").child(time).set(sensorData[1])
+        db.child(table1).child("externalTemp").child(time).set(sensorData[2])
+        db.child(table1).child("externalHumidity").child(time).set(sensorData[3])
+        db.child(table1).child("fanSpeed").child(time).set(sensorData[4])
+        
+        db.child(table2).child("nozzleTemp").child(time).set(printerData[0])
+        db.child(table2).child("bedTemp").child(time).set(printerData[1])
+        #db.child(table3).child("progress").child(time).set(printerData[2])
+        
         sleep(5)
 
 if __name__ == '__main__':
