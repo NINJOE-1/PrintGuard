@@ -6,6 +6,7 @@ Written by Joseph Vretenar
 '''
 
 # declare import libraries
+import os
 import smbus
 import sys
 import pyrebase
@@ -14,6 +15,8 @@ from time import sleep
 import info
 import PrusaLinkWrapper
 from datetime import datetime
+import base64
+#from PIL import image
 
 # setup firebase config
 config = {
@@ -38,6 +41,13 @@ cameraAddress = 0x0a
 t1 = "SensorData"
 t2 = "PrinterData"
 t3 = "Errors"
+
+
+def convertImageToByte(image_path):
+    with open(image_path, 'rb') as f:
+        image_data = f.read()
+    image_base64 = base64.b64encode(image_data).decode('utf-8')
+    return image_base64
 
 
 # main function
@@ -71,6 +81,8 @@ def main():
         db.child(t1).child("fanSpeed").child(time).set(sensorData[4])
         db.child(t2).child("nozzleTemp").child(time).set(printerData[0])
         db.child(t2).child("bedTemp").child(time).set(printerData[1])
+        os.system("libcamera-still -o images/capture.jpg")
+        db.child(t2).child("image").child(time).set({"image_data": convertImageToByte("images/capture.jpg")})
         # if the printer is printing, get progress
         if (printer.getPrintingStatus()):
             progress = printer.getProgress()
@@ -96,7 +108,7 @@ def main():
             payload = {'content': (error)}
             requests.post(info.DISCORD_WEBHOOK_URL, json=payload)
             db.child(t3).child("error").child(time).set(error)
-        sleep(5)
+        sleep(30)
 
 
 if __name__ == '__main__':
