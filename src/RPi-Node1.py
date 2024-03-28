@@ -16,7 +16,6 @@ import info
 import PrusaLinkWrapper
 from datetime import datetime
 import base64
-#from PIL import image
 
 # setup firebase config
 config = {
