@@ -2,7 +2,7 @@
 This file contains all the code for the main raspberry pi of the system.
 This contains the main periodic loop that gathers sensor info and
 adds it to the firebase and notifies the user if something is off.
-Written by Joseph Vretenar
+Written by Joseph Vretenar, Samuel Mauricla, and Basma Aboushaer
 '''
 
 # declare import libraries

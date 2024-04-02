@@ -1,0 +1,361 @@
+<!--written by Raunak Singh Soi -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Print Guard Dashboard</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #FFFFFF;
+            color: #343A40;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+        }
+        .hidden-content, .hidden-camera-feed, .hidden-camera-link, #printerControlSection {
+            display: none;
+        }
+        .verification-message {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+        }
+        .logo {
+            margin-left: 20px;
+            width: 280px;
+            height: auto;
+        }
+        .camera-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: auto;
+            cursor: pointer;
+        }
+        .header {
+            position: relative;
+        }
+        .camera-feed, .left-section, .right-section, .middle-section {
+            border: 2px solid #343A40;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        button {
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .data-list {
+            list-style: none;
+            text-align: left;
+            padding-left: 0;
+        }
+        /* Style adjustments for the graph containers */
+        .graph-container {
+            width: 600px;
+            height: 350px;
+            margin: auto;
+        }
+        #adminSwitch {
+            display: block;
+            margin: 0 auto; /* This will center the button horizontally */
+        } 
+
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="{{ url_for('static', filename='firebaseConfig.js') }}"></script>
+</head>
+<body>
+    <!-- Verification Message Section -->
+    <div class="verification-message">
+        <button id="verifySystem">Verify System</button>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="main-content hidden-content">
+        <!-- Header Section -->
+        <div class="header">
+            <img src="https://raw.githubusercontent.com/RaunakSinghSoi/schoolwork/main/logo.png" alt="Print Guard Logo" class="logo">
+            <div class="camera-link hidden-camera-link">
+                <a href="http://127.0.0.1:8000" target="_blank"> 
+                    <img src="https://raw.githubusercontent.com/RaunakSinghSoi/schoolwork/main/camera.jpg" alt="Camera Icon" class="camera-icon">
+                </a>
+            </div>
+            <div class="camera-feed hidden-camera-feed">
+                <h2>Live Camera Feed</h2>
+                <p>Feed will be displayed here.</p>
+            </div>
+            <button type="button" id="adminSwitch">Admin Mode</button>
+        </div>
+
+        <!-- Content Section -->
+        <div class="content">
+            <!-- Left Section (Printer Data) -->
+            <div class="left-section">
+                <div class="section" id="printerDataSection">
+                    <h2>Printer Data</h2>
+                    <div id="printerDataGraph" class="graph-container"></div>
+                </div>
+            </div>
+
+            <!-- Middle Section (Internal Sensor Data) -->
+            <div class="middle-section">
+                <div class="section" id="internalSensorDataSection">
+                    <h2>Internal Sensor Data</h2>
+                    <div id="internalSensorGraph" class="graph-container"></div>
+                </div>
+            </div>
+
+            <!-- Right Section (External Sensor Data) -->
+            <div class="right-section">
+                <div class="section" id="externalSensorDataSection">
+                    <h2>External Sensor Data</h2>
+                    <div id="externalSensorGraph" class="graph-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Printer Control Section -->
+        <div class="section" id="printerControlSection">
+            <h2>Printer Control</h2>
+            <button type="button" id="pausePrinter">Pause Printer</button>
+            <button type="button" id="stopPrinter">Stop Printer</button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Firebase configuration
+        firebase.initializeApp(firebaseConfig);
+        // Verify System button functionality
+        document.getElementById("verifySystem").addEventListener("click", function() {
+            document.querySelector(".verification-message").style.display = "none";
+            document.querySelector(".main-content").classList.remove("hidden-content");
+            fetchAndDisplayData();
+        });
+
+        // Admin Mode switch functionality
+        document.getElementById("adminSwitch").addEventListener("click", function() {
+            var password = prompt("Enter password to switch to Admin Mode:");
+            if (password === "L2-G9") {
+                alert("Switching to Admin Mode");
+                document.getElementById("printerControlSection").style.display = "block";
+                document.querySelector(".camera-link").classList.remove("hidden-camera-link");
+            } else {
+                alert("Incorrect password. Please try again.");
+            }
+        });
+
+        // Printer Control buttons functionality
+        document.getElementById("pausePrinter").addEventListener("click", function() {
+            if (confirm("Are you sure you want to pause the printer?")) {
+                alert("Printer paused");
+                // Joe pause printer logic.
+            }
+        });
+
+        document.getElementById("stopPrinter").addEventListener("click", function() {
+            if (confirm("Are you sure you want to stop the printer?")) {
+                alert("Printer stopped");
+                //Joe here.
+            }
+        });
+
+        // Function to fetch data from Firebase and display graphs
+        function fetchAndDisplayData() {
+            const printerDataRef = firebase.database().ref('PrinterData');
+            const internalHumidityRef = firebase.database().ref('SensorData/internalHumidity');
+            const internalTempRef = firebase.database().ref('SensorData/internalTemp');
+            const externalHumidityRef = firebase.database().ref('SensorData/externalHumidity');
+            const externalTempRef = firebase.database().ref('SensorData/externalTemp');
+            const fanSpeedRef = firebase.database().ref('SensorData/fanSpeed');
+
+            let printerData, internalHumidityData, internalTempData, externalHumidityData, externalTempData, fanSpeedData;
+
+            // Fetch Printer Data
+            printerDataRef.on('value', (snapshot) => {
+                printerData = snapshot.val();
+                console.log('Printer Data:', printerData);
+                updatePrinterGraph('printerDataGraph', printerData);
+            });
+
+            // Fetch Internal Humidity Data
+            internalHumidityRef.on('value', (snapshot) => {
+                internalHumidityData = snapshot.val();
+                console.log('Internal Humidity Data:', internalHumidityData);
+                updateInternalGraph('internalSensorGraph', internalHumidityData, internalTempData, fanSpeedData);
+            });
+
+            // Fetch Internal Temperature Data
+            internalTempRef.on('value', (snapshot) => {
+                internalTempData = snapshot.val();
+                console.log('Internal Temperature Data:', internalTempData);
+                updateInternalGraph('internalSensorGraph', internalHumidityData, internalTempData, fanSpeedData);
+            });
+
+            // Fetch External Humidity Data
+            externalHumidityRef.on('value', (snapshot) => {
+                externalHumidityData = snapshot.val();
+                console.log('External Humidity Data:', externalHumidityData);
+                updateExternalGraph('externalSensorGraph', externalHumidityData, externalTempData);
+            });
+
+            // Fetch External Temperature Data
+            externalTempRef.on('value', (snapshot) => {
+                externalTempData = snapshot.val();
+                console.log('External Temperature Data:', externalTempData);
+                updateExternalGraph('externalSensorGraph', externalHumidityData, externalTempData);
+            });
+
+            // Fetch Fan Speed Data
+            fanSpeedRef.on('value', (snapshot) => {
+                fanSpeedData = snapshot.val();
+                console.log('Fan Speed Data:', fanSpeedData);
+                updateInternalGraph('internalSensorGraph', internalHumidityData, internalTempData, fanSpeedData);
+            });
+        }
+
+        // Function to update the printer graph
+        function updatePrinterGraph(elementId, printerData) {
+            console.log('Updating printer graph...');
+            console.log('Printer Data:', printerData);
+
+            // Your printer graph update logic here
+            // Extracting x and y values from the data
+            let xValues = Object.keys(printerData.bedTemp);
+            let yValues1 = Object.values(printerData.bedTemp);
+            let yValues2 = Object.values(printerData.nozzleTemp);
+
+            let trace1 = {
+                x: xValues,
+                y: yValues1,
+                name: 'Bed Temperature',
+                type: 'scatter',
+                mode: 'lines+markers',
+                line: {color: 'blue'}
+            };
+
+            let trace2 = {
+                x: xValues,
+                y: yValues2,
+                name: 'Nozzle Temperature',
+                type: 'scatter',
+                mode: 'lines+markers',
+                line: {color: 'red'}
+            };
+
+            // Layout for the graph
+            let layout = {
+                title: 'Printer Data',
+                xaxis: { title: 'Datetime' },
+                yaxis: { title: 'Temperature (°C)' }
+            };
+
+            // Plotting the graph
+            Plotly.newPlot(elementId, [trace1, trace2], layout);
+        }
+
+        
+        function updateInternalGraph(elementId, internalHumidityData, internalTempData, fanSpeedData) {
+            console.log('Updating internal sensor graph...');
+            console.log('Internal Humidity Data:', internalHumidityData);
+            console.log('Internal Temperature Data:', internalTempData);
+            console.log('Fan Speed Data:', fanSpeedData);
+
+            
+            let xValues = Object.keys(internalHumidityData);
+
+            
+            let trace1 = {
+                x: xValues,
+                y: Object.values(internalHumidityData),
+                name: 'Internal Humidity',
+                type: 'scatter',
+                mode: 'lines+markers',
+                line: {color: 'blue'}
+            };
+
+            let trace2 = {
+                x: xValues,
+                y: Object.values(internalTempData),
+                name: 'Internal Temperature(°C)',
+                type: 'scatter',
+                mode: 'lines+markers',
+                line: {color: 'red'}
+            };
+
+            let trace3 = {
+                x: xValues,
+                y: Object.values(fanSpeedData),
+                name: 'Fan Speed',
+                type: 'scatter',
+                mode: 'lines+markers',
+                line: {color: 'green'}
+            };
+
+            // Layout for the graph
+            let layout = {
+                title: 'Internal Sensor Data',
+                xaxis: { title: 'Datetime' },
+                yaxis: { title: 'Value' }
+            };
+
+            // Plotting the graph
+            Plotly.newPlot(elementId, [trace1, trace2, trace3], layout);
+        }
+
+        function updateExternalGraph(elementId, externalHumidityData, externalTempData) {
+            console.log('Updating external sensor graph...');
+            console.log('External Humidity Data:', externalHumidityData);
+            console.log('External Temperature Data:', externalTempData);
+
+            
+            let xValues = Object.keys(externalHumidityData);
+
+            let trace1 = {
+                x: xValues,
+                y: Object.values(externalHumidityData),
+                name: 'External Humidity',
+                type: 'scatter',
+                mode: 'lines+markers',
+                line: {color: 'blue'}
+            };
+
+            let trace2 = {
+                x: xValues,
+                y: Object.values(externalTempData),
+                name: 'External Temperature(°C)',
+                type: 'scatter',
+                mode: 'lines+markers',
+                line: {color: 'red'}
+            };
+
+            // Layout for the graph
+            let layout = {
+                title: 'External Sensor Data',
+                xaxis: { title: 'Datetime' },
+                yaxis: { title: 'Value' }
+            };
+
+            // Plotting the graph
+            Plotly.newPlot(elementId, [trace1, trace2], layout);
+        }
+    </script>
+</body>
+</html>
