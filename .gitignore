@@ -1,3 +1,6 @@
 #Ignore any file called info.py
 **/info.py
+#Ignore any jpg images
 **/*.jpg
+#Ignore any js files
+**/*.js
