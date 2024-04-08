@@ -9,6 +9,7 @@ Joseph Vretenar<br> Basma Aboushaer<br> Samuel Mauricla<br> Raunak Singh Soi<br>
 ### TA: <!-- omit in toc -->
 Ben Earle
 
+# Table of Contents <!-- omit in toc -->
 - [Project Overview](#project-overview)
   - [Project Description](#project-description)
   - [Project Structure](#project-structure)
