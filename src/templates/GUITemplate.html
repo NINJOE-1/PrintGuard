@@ -238,9 +238,9 @@
 
             // Your printer graph update logic here
             // Extracting x and y values from the data
-            let xValues = Object.keys(printerData.bedTemp);
-            let yValues1 = Object.values(printerData.bedTemp);
-            let yValues2 = Object.values(printerData.nozzleTemp);
+            let xValues = Object.keys(printerData.bedTemp).slice(-20);
+            let yValues1 = Object.values(printerData.bedTemp).slice(-20);
+            let yValues2 = Object.values(printerData.nozzleTemp).slice(-20);
 
             let trace1 = {
                 x: xValues,
@@ -279,33 +279,36 @@
             console.log('Fan Speed Data:', fanSpeedData);
 
             
-            let xValues = Object.keys(internalHumidityData);
+            let xValues = Object.keys(internalHumidityData).slice(-20);
 
             
             let trace1 = {
                 x: xValues,
-                y: Object.values(internalHumidityData),
+                y: Object.values(internalHumidityData).slice(-20),
                 name: 'Internal Humidity',
                 type: 'scatter',
                 mode: 'lines+markers',
+                yaxis: 'y1',
                 line: {color: 'blue'}
             };
 
             let trace2 = {
                 x: xValues,
-                y: Object.values(internalTempData),
+                y: Object.values(internalTempData).slice(-20),
                 name: 'Internal Temperature(°C)',
                 type: 'scatter',
                 mode: 'lines+markers',
+                yaxis: 'y1',
                 line: {color: 'red'}
             };
 
             let trace3 = {
                 x: xValues,
-                y: Object.values(fanSpeedData),
+                y: Object.values(fanSpeedData).slice(-20),
                 name: 'Fan Speed',
                 type: 'scatter',
                 mode: 'lines+markers',
+                yaxis: 'y2',
                 line: {color: 'green'}
             };
 
@@ -313,7 +316,8 @@
             let layout = {
                 title: 'Internal Sensor Data',
                 xaxis: { title: 'Datetime' },
-                yaxis: { title: 'Value' }
+                yaxis: { title: 'Sensor Values', side: 'left' },
+                yaxis2: { title: 'Fan Speed', side: 'right', anchor: 'x', overlaying: 'y'}
             };
 
             // Plotting the graph
@@ -326,11 +330,11 @@
             console.log('External Temperature Data:', externalTempData);
 
             
-            let xValues = Object.keys(externalHumidityData);
+            let xValues = Object.keys(externalHumidityData).slice(-20);
 
             let trace1 = {
                 x: xValues,
-                y: Object.values(externalHumidityData),
+                y: Object.values(externalHumidityData).slice(-20),
                 name: 'External Humidity',
                 type: 'scatter',
                 mode: 'lines+markers',
@@ -339,7 +343,7 @@
 
             let trace2 = {
                 x: xValues,
-                y: Object.values(externalTempData),
+                y: Object.values(externalTempData).slice(-20),
                 name: 'External Temperature(°C)',
                 type: 'scatter',
                 mode: 'lines+markers',
