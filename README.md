@@ -61,7 +61,7 @@ Finally the discord webhook has to be setup, to do you first need a server to se
 
 ### Hidden Files
 
-The file structure located [above](###Project-tree) shows two files that are not on the github page, which are ```info.py``` and ```firebaseConfig.js```, this is because they have data specific to you. These files will have to be created manually, with ```info.py``` on both Raspberry Pis and ```firebaseConfig.js``` on the Raspberry Pi running the GUI. 
+The file structure located [above](#Project-tree) shows two files that are not on the github page, which are ```info.py``` and ```firebaseConfig.js```, this is because they have data specific to you. These files will have to be created manually, with ```info.py``` on both Raspberry Pis and ```firebaseConfig.js``` on the Raspberry Pi running the GUI. 
 
 ```Info.py``` should look like this:
 ```
