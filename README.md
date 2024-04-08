@@ -1,4 +1,4 @@
 <img src="PrintGuardLogo.png" alt="Image Description" align="left" width="150" height="auto" style="margin-right: 30px">
 
-<b><font size=20> Print Guard<br> </font>
-<font size=5> Real-time 3D Printer Monitoring and Management System </font></b>
+<b><span style="font-size:50px"> Print Guard<br> </span>
+<span style="font-size:25px"> Real-time 3D Printer Monitoring and Management System </span></b>
