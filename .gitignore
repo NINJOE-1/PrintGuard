@@ -3,4 +3,4 @@
 #Ignore any jpg images
 **/*.jpg
 #Ignore any js files
-**/*.js
+**/firebaseConfig.js
