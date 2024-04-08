@@ -59,3 +59,13 @@ class PrusaLinkWrapper:
             print("Failed to stop job. Status code: " + str(response.status_code))
             return False
         return True
+    
+    def pausePrint(self):
+        data = {'command': 'pause'}
+        response = requests.post('http://' + self.host + ':' + self.port + '/api/job', json=data, headers=self.headers)
+        if response.status_code == 204:
+            print("Print job stopped successfully.")
+        else:
+            print("Failed to stop job. Status code: " + str(response.status_code))
+            return False
+        return True
