@@ -94,7 +94,7 @@ var firebaseConfig = {
 
 ## Run Instructions
 
-Once everything is downloaded, flashed, wiredup, and setup. The system can be run. The files can be run in any order but the best way to set it up would be to run:<br>1. ```RPiNode1.py```<br>2. ```RPiNode2.py```<br>3. ```PrintGuardGUI.py```<br>The GUI can be connected to locally on the Raspberry Pi by going to ```http://127.0.0.1:5000``` or remotely by going to ```http://RASPBERRYPI-IP:5000``` where RASPBERRYPI-IP is the ip address of teh Raspberry Pi running the GUI.
+Once everything is downloaded, flashed, wired up, and setup. The system can be run. The files can be run in any order but the best way to set it up would be to run:<br>1. ```RPiNode1.py```<br>2. ```RPiNode2.py```<br>3. ```PrintGuardGUI.py```<br>The GUI can be connected to locally on the Raspberry Pi by going to ```http://127.0.0.1:5000``` or remotely by going to ```http://RASPBERRYPI-IP:5000``` where RASPBERRYPI-IP is the ip address of teh Raspberry Pi running the GUI.
 
 ## Expected Results
 
