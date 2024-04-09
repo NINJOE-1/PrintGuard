@@ -16,6 +16,7 @@ Ben Earle
     - [Project tree](#project-tree)
 - [Creating your own Print Guard](#creating-your-own-print-guard)
   - [Installation Instructions](#installation-instructions)
+    - [Wiring Diagrams](#wiring-diagrams)
     - [Hidden Files](#hidden-files)
   - [Run Instructions](#run-instructions)
   - [Expected Results](#expected-results)
@@ -58,6 +59,13 @@ If using a Prusa printer (Mk4, Mini, or XL), you need to obtain the IP address l
 The next part is setting up the firebase for real time database collection. This can be setup through the firebase console, the only change needed is to set the read and write rules to both be true. This is something that can be changed in the future to protect your data.
 
 Finally the discord webhook has to be setup, to do you first need a server to setup the notifications on. On this server go to ```Server settings > Integrations > Webhooks > New Webhook``` you can then change the name and select the channel for that bot to send messages to. The Webhook can be copied here and will need to be saved for later.
+
+### Wiring Diagrams
+This is the breadboard view for the Print Guard wiring. Note that the Sensors can either be DHT11 or DHT22 which can be changed in the deployment code, and that the fan requires a 5V to 12V boost converter.
+![alt text](BreadboardView.png)
+
+This is the schematic view of the above breadboard it shows all the same connections with the same requirements.
+![alt text](SchematicView.png)
 
 ### Hidden Files
 
